@@ -17,16 +17,34 @@ async function downloadMedia(info) {
 
   try {
     let folderName = await getFoldersName(info);
-    const urlElements = info.srcUrl.split("/");
-    let name = urlElements[urlElements.length - 1];
+    let fileName = await getFilename(info);
 
     chrome.downloads.download({
-      filename: `${folderName}/${name}`,
+      filename: `${folderName}/${fileName}`,
       conflictAction: "uniquify",
       url: info.srcUrl,
     });
   } catch (e) {
     console.log("something went wrong: ", e);
+  }
+}
+
+async function getFilename(info) {
+  const urlElements = info.srcUrl.split("/");
+  let name = urlElements[urlElements.length - 1];
+  try {
+    const { prependDomain } = await chrome.storage.local.get(["prependDomain"]);
+
+    if (!prependDomain) return name;
+
+    const url = new URL(info.pageUrl);
+    const domain = url.hostname.startsWith("www.")
+      ? url.hostname.slice(4)
+      : url.hostname;
+
+    return `${domain} – ${name}`;
+  } catch (e) {
+    return name;
   }
 }
 

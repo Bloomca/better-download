@@ -1,14 +1,21 @@
 async function setSavedValues() {
-  const { shouldUseFolder, commonFolderName } = await chrome.storage.local.get([
-    "shouldUseFolder",
-    "commonFolderName",
-  ]);
+  const { shouldUseFolder, commonFolderName, prependDomain } =
+    await chrome.storage.local.get([
+      "shouldUseFolder",
+      "commonFolderName",
+      "prependDomain",
+    ]);
 
   const useCommonFolderCheckbox = document.getElementById("useCommonFolder");
   const commonFolderNameInput = document.getElementById("commonFolderName");
+  const prependDomainCheckbox = document.getElementById("prependDomain");
 
   if (shouldUseFolder) {
     useCommonFolderCheckbox.checked = true;
+  }
+
+  if (prependDomain) {
+    prependDomainCheckbox.checked = true;
   }
 
   commonFolderNameInput.value = commonFolderName || "BetterDownload";
@@ -22,6 +29,12 @@ async function setSavedValues() {
   commonFolderNameInput.addEventListener("change", (event) => {
     chrome.storage.local.set({
       commonFolderName: event.target.value,
+    });
+  });
+
+  prependDomainCheckbox.addEventListener("change", (event) => {
+    chrome.storage.local.set({
+      prependDomain: event.target.checked,
     });
   });
 }
