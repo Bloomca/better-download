@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Better Download Settings</title>
+    <style>
+      html {
+        padding: 5px;
+        min-height: 5em;
+        min-width: 20em;
+        background: rgba(0, 191, 255, 0.7);
+      }
+
+      .title {
+        font-size: 16px;
+      }
+
+      #settings > div {
+        padding-bottom: 7px;
+        margin-bottom: 7px;
+        border-bottom: 1px solid rgba(31, 46, 116, 0.25);
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="title">Better Download Settings</h1>
+    <section id="reading-error" style="display: none">
+      Could not read data.
+    </section>
+    <section id="settings">
+      <div>
+        <label>
+          Use parent folder:
+          <input id="useCommonFolder" type="checkbox" />
+        </label>
+      </div>
+
+      <div>
+        <label>
+          Parent folder name:
+          <input id="commonFolderName" type="name" value="" />
+        </label>
+      </div>
+    </section>
+    <script src="popup.js"></script>
+  </body>
+</html>

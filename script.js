@@ -12,11 +12,11 @@ chrome.runtime.onInstalled.addListener(function () {
   });
 });
 
-function downloadMedia(info) {
+async function downloadMedia(info) {
   console.log("downloading media:", info);
 
   try {
-    let folderName = getFolderName(info);
+    let folderName = await getFoldersName(info);
     const urlElements = info.srcUrl.split("/");
     let name = urlElements[urlElements.length - 1];
 
@@ -27,6 +27,20 @@ function downloadMedia(info) {
     });
   } catch (e) {
     console.log("something went wrong: ", e);
+  }
+}
+
+async function getFoldersName(info) {
+  const folderName = getFolderName(info);
+  try {
+    const { shouldUseFolder, commonFolderName } =
+      await chrome.storage.local.get(["shouldUseFolder", "commonFolderName"]);
+
+    if (!shouldUseFolder || !commonFolderName) return folderName;
+
+    return `${commonFolderName}/${folderName}`;
+  } catch (e) {
+    return folderName;
   }
 }
 

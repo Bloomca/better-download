@@ -2,12 +2,16 @@
     "manifest_version": 3,
     "name": "Better Download",
     "version": "1.0.0",
-    "description": "More granular downloading defaults",
+    "description": "Download media files into specific folders",
     "permissions": [
         "contextMenus",
-        "downloads"
+        "downloads",
+        "storage"
     ],
     "background": {
         "service_worker": "script.js"
+    },
+    "action": {
+        "default_popup": "popup.html"
     }
 }
