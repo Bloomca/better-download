@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Better Download",
+    "version": "1.0.0",
+    "description": "More granular downloading defaults",
+    "permissions": [
+        "contextMenus",
+        "downloads"
+    ],
+    "background": {
+        "service_worker": "script.js"
+    }
+}
