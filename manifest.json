@@ -2,16 +2,20 @@
     "manifest_version": 3,
     "name": "Better Download",
     "version": "1.0.0",
-    "description": "Download media files into specific folders",
+    "description": "Download media files into specific folders like /images, /gifs, /videos and /audio",
     "permissions": [
         "contextMenus",
         "downloads",
         "storage"
     ],
     "background": {
-        "service_worker": "script.js"
+        "service_worker": "script.js",
+        "scripts": ["script.js"]
     },
     "action": {
         "default_popup": "popup.html"
+    },
+    "icons": {
+        "128": "icon_128.png"
     }
 }
